@@ -1,6 +1,9 @@
 "use client";
 import { Grid, Box } from "@mui/material";
 import PageContainer from "@/app/(DashboardLayout)/components/container/PageContainer";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+
 // components
 import SalesOverview from "@/app/(DashboardLayout)/components/dashboard/SalesOverview";
 import YearlyBreakup from "@/app/(DashboardLayout)/components/dashboard/YearlyBreakup";
@@ -9,10 +12,30 @@ import ProductPerformance from "@/app/(DashboardLayout)/components/dashboard/Pro
 import Blog from "@/app/(DashboardLayout)/components/dashboard/Blog";
 import MonthlyEarnings from "@/app/(DashboardLayout)/components/dashboard/MonthlyEarnings";
 
+const api = axios.create({
+  baseURL: "https://m5gix2qj97.execute-api.ap-northeast-2.amazonaws.com/prod",
+});
+
+// API 요청 함수
+const fetchDashboardData = async () => {
+  const { data } = await api.get("/hello");
+  return data;
+};
+
 const Dashboard = () => {
+  // useQuery 훅 사용
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["dashboardData"],
+    queryFn: fetchDashboardData,
+  });
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>An error occurred: {error.message}</div>;
+
   return (
     <PageContainer title="Dashboard" description="this is Dashboard for s&I">
       <Box>
+        {data}
         <Grid container spacing={3}>
           <Grid item xs={12} lg={8}>
             <SalesOverview />
