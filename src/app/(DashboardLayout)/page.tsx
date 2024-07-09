@@ -35,7 +35,7 @@ const Dashboard = () => {
   return (
     <PageContainer title="Dashboard" description="this is Dashboard for s&I">
       <Box>
-        {data}
+        {data.message}
         <Grid container spacing={3}>
           <Grid item xs={12} lg={8}>
             <SalesOverview />
