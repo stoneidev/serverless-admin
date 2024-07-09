@@ -13,7 +13,7 @@ import Blog from "@/app/(DashboardLayout)/components/dashboard/Blog";
 import MonthlyEarnings from "@/app/(DashboardLayout)/components/dashboard/MonthlyEarnings";
 
 const api = axios.create({
-  baseURL: "https://zs78rflo3c.execute-api.ap-northeast-2.amazonaws.com/prod",
+  baseURL: "https://bw33cfts7a.execute-api.ap-northeast-2.amazonaws.com/prod",
 });
 
 // API 요청 함수
