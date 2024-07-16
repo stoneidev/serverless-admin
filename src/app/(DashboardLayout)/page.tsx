@@ -13,7 +13,8 @@ import Blog from "@/app/(DashboardLayout)/components/dashboard/Blog";
 import MonthlyEarnings from "@/app/(DashboardLayout)/components/dashboard/MonthlyEarnings";
 
 const api = axios.create({
-  baseURL: "https://imd1uugvp4.execute-api.ap-northeast-2.amazonaws.com/prod",
+  // baseURL: "https://imd1uugvp4.execute-api.ap-northeast-2.amazonaws.com/prod",
+  baseURL: process.env.API_GW_URL,
 });
 
 // API 요청 함수
@@ -35,7 +36,7 @@ const Dashboard = () => {
   return (
     <PageContainer title="Dashboard" description="this is Dashboard for s&I">
       <Box>
-        {data.message}
+        {data.message},{process.env.API_GW_URL}
         <Grid container spacing={3}>
           <Grid item xs={12} lg={8}>
             <SalesOverview />
