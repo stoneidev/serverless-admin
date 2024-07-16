@@ -12,31 +12,32 @@ import ProductPerformance from "@/app/(DashboardLayout)/components/dashboard/Pro
 import Blog from "@/app/(DashboardLayout)/components/dashboard/Blog";
 import MonthlyEarnings from "@/app/(DashboardLayout)/components/dashboard/MonthlyEarnings";
 
-const api = axios.create({
-  // baseURL: "https://imd1uugvp4.execute-api.ap-northeast-2.amazonaws.com/prod",
-  baseURL: process.env.API_GW_URL,
-});
+// const api = axios.create({
+//   // baseURL: "https://imd1uugvp4.execute-api.ap-northeast-2.amazonaws.com/prod",
+//   baseURL: process.env.API_GW_URL,
+// });
 
-// API 요청 함수
-const fetchDashboardData = async () => {
-  const { data } = await api.get("/hello");
-  return data;
-};
+// // API 요청 함수
+// const fetchDashboardData = async () => {
+//   const { data } = await api.get("/hello");
+//   return data;
+// };
 
 const Dashboard = () => {
   // useQuery 훅 사용
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["dashboardData"],
-    queryFn: fetchDashboardData,
-  });
+  // const { data, isLoading, error } = useQuery({
+  //   queryKey: ["dashboardData"],
+  //   queryFn: fetchDashboardData,
+  // });
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>An error occurred: {error.message}</div>;
+  // if (isLoading) return <div>Loading...</div>;
+  // if (error) return <div>An error occurred: {error.message}</div>;
 
   return (
     <PageContainer title="Dashboard" description="this is Dashboard for s&I">
       <Box>
-        {data.message},{process.env.API_GW_URL}
+        {/* {data.message}, */}
+        {process.env.API_GW_URL}
         <Grid container spacing={3}>
           <Grid item xs={12} lg={8}>
             <SalesOverview />
