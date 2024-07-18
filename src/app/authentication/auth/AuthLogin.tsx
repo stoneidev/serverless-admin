@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Typography,
@@ -9,8 +9,10 @@ import {
   Checkbox,
 } from "@mui/material";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import CustomTextField from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomTextField";
+import { signIn } from "aws-amplify/auth";
 
 interface loginType {
   title?: string;
@@ -18,81 +20,114 @@ interface loginType {
   subtext?: JSX.Element | JSX.Element[];
 }
 
-const AuthLogin = ({ title, subtitle, subtext }: loginType) => (
-  <>
-    {title ? (
-      <Typography fontWeight="700" variant="h2" mb={1}>
-        {title}
-      </Typography>
-    ) : null}
+const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [error, setError] = useState("");
 
-    {subtext}
+  const router = useRouter();
 
-    <Stack>
-      <Box>
-        <Typography
-          variant="subtitle1"
-          fontWeight={600}
-          component="label"
-          htmlFor="username"
-          mb="5px"
-        >
-          Username
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    setError("");
+
+    try {
+      await signIn({
+        username: username,
+        password,
+      });
+      router.push("/"); //
+    } catch (error: any) {
+      console.error("Error signing up:", error);
+      setError(error.message);
+    }
+  };
+
+  return (
+    <>
+      {title ? (
+        <Typography fontWeight="700" variant="h2" mb={1}>
+          {title}
         </Typography>
-        <CustomTextField variant="outlined" fullWidth />
-      </Box>
-      <Box mt="25px">
-        <Typography
-          variant="subtitle1"
-          fontWeight={600}
-          component="label"
-          htmlFor="password"
-          mb="5px"
-        >
-          Password
-        </Typography>
-        <CustomTextField type="password" variant="outlined" fullWidth />
-      </Box>
-      <Stack
-        justifyContent="space-between"
-        direction="row"
-        alignItems="center"
-        my={2}
-      >
-        <FormGroup>
-          <FormControlLabel
-            control={<Checkbox defaultChecked />}
-            label="Remeber this Device"
+      ) : null}
+
+      {subtext}
+
+      <Stack>
+        <Box>
+          <Typography
+            variant="subtitle1"
+            fontWeight={600}
+            component="label"
+            htmlFor="username"
+            mb="5px"
+          >
+            Username
+          </Typography>
+          <CustomTextField
+            variant="outlined"
+            value={username}
+            onChange={(e: any) => setUsername(e.target.value)}
+            fullWidth
           />
-        </FormGroup>
-        <Typography
-          component={Link}
-          href="/"
-          fontWeight="500"
-          sx={{
-            textDecoration: "none",
-            color: "primary.main",
-          }}
+        </Box>
+        <Box mt="25px">
+          <Typography
+            variant="subtitle1"
+            fontWeight={600}
+            component="label"
+            htmlFor="password"
+            mb="5px"
+          >
+            Password
+          </Typography>
+          <CustomTextField
+            type="password"
+            variant="outlined"
+            value={password}
+            onChange={(e: any) => setPassword(e.target.value)}
+            fullWidth
+          />
+        </Box>
+        <Stack
+          justifyContent="space-between"
+          direction="row"
+          alignItems="center"
+          my={2}
         >
-          Forgot Password ?
-        </Typography>
+          <FormGroup>
+            <FormControlLabel
+              control={<Checkbox defaultChecked />}
+              label="Remeber this Device"
+            />
+          </FormGroup>
+          <Typography
+            component={Link}
+            href="/"
+            fontWeight="500"
+            sx={{
+              textDecoration: "none",
+              color: "primary.main",
+            }}
+          >
+            Forgot Password ?
+          </Typography>
+        </Stack>
       </Stack>
-    </Stack>
-    <Box>
-      <Button
-        color="primary"
-        variant="contained"
-        size="large"
-        fullWidth
-        component={Link}
-        href="/"
-        type="submit"
-      >
-        Sign In
-      </Button>
-    </Box>
-    {subtitle}
-  </>
-);
+      <Box>
+        <Button
+          color="primary"
+          variant="contained"
+          size="large"
+          fullWidth
+          onClick={handleSubmit}
+        >
+          Sign In
+        </Button>
+      </Box>
+      {subtitle}
+    </>
+  );
+};
 
 export default AuthLogin;

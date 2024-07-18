@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Box, Typography, Button } from "@mui/material";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import CustomTextField from "@/app/(DashboardLayout)/components/forms/theme-elements/CustomTextField";
 import { Stack } from "@mui/system";
@@ -13,10 +14,11 @@ interface registerType {
 }
 
 const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
-  // const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+
+  const router = useRouter();
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -32,8 +34,7 @@ const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
           },
         },
       });
-      console.log("User successfully registered:", userId);
-      // Here you can redirect the user or show a success message
+      router.push("/authentication/login"); // 원하는 경로로 변경하세요
     } catch (error: any) {
       console.error("Error signing up:", error);
       setError(error.message);
@@ -52,23 +53,6 @@ const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
 
       <Box>
         <Stack mb={3}>
-          {/* <Typography
-            variant="subtitle1"
-            fontWeight={600}
-            component="label"
-            htmlFor="name"
-            mb="5px"
-          >
-            Name
-          </Typography>
-          <CustomTextField
-            id="name"
-            variant="outlined"
-            value={username}
-            onChange={(e: any) => setUsername(e.target.value)}
-            fullWidth
-          /> */}
-
           <Typography
             variant="subtitle1"
             fontWeight={600}
@@ -99,6 +83,7 @@ const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
           </Typography>
           <CustomTextField
             id="password"
+            type="password"
             variant="outlined"
             value={password}
             onChange={(e: any) => setPassword(e.target.value)}

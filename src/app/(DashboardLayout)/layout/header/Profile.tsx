@@ -12,14 +12,32 @@ import {
 } from "@mui/material";
 
 import { IconListCheck, IconMail, IconUser } from "@tabler/icons-react";
+import { signOut } from "aws-amplify/auth";
+import { useRouter } from "next/navigation";
 
 const Profile = () => {
   const [anchorEl2, setAnchorEl2] = useState(null);
+  const [error, setError] = useState("");
+
+  const router = useRouter();
+
   const handleClick2 = (event: any) => {
     setAnchorEl2(event.currentTarget);
   };
   const handleClose2 = () => {
     setAnchorEl2(null);
+  };
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+
+    try {
+      await signOut({ global: true });
+      router.push("/authentication/login"); //
+    } catch (error: any) {
+      console.error("Error signing up:", error);
+      setError(error.message);
+    }
   };
 
   return (
@@ -83,10 +101,9 @@ const Profile = () => {
         </MenuItem>
         <Box mt={1} py={1} px={2}>
           <Button
-            href="/authentication/login"
             variant="outlined"
             color="primary"
-            component={Link}
+            onClick={handleSubmit}
             fullWidth
           >
             Logout
@@ -98,3 +115,6 @@ const Profile = () => {
 };
 
 export default Profile;
+function clearCachedCredentials() {
+  throw new Error("Function not implemented.");
+}
