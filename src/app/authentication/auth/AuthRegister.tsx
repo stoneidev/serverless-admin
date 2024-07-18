@@ -13,7 +13,7 @@ interface registerType {
 }
 
 const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
-  const [username, setUsername] = useState("");
+  // const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
@@ -24,7 +24,7 @@ const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
 
     try {
       const { userId } = await signUp({
-        username,
+        username: email,
         password,
         options: {
           userAttributes: {
@@ -52,7 +52,7 @@ const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
 
       <Box>
         <Stack mb={3}>
-          <Typography
+          {/* <Typography
             variant="subtitle1"
             fontWeight={600}
             component="label"
@@ -67,7 +67,7 @@ const AuthRegister = ({ title, subtitle, subtext }: registerType) => {
             value={username}
             onChange={(e: any) => setUsername(e.target.value)}
             fullWidth
-          />
+          /> */}
 
           <Typography
             variant="subtitle1"
