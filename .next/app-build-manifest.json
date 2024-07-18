@@ -1,19 +1,9 @@
 {
   "pages": {
-    "/(DashboardLayout)/page": [
+    "/authentication/register/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(DashboardLayout)/page.js"
-    ],
-    "/(DashboardLayout)/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(DashboardLayout)/layout.js"
-    ],
-    "/(DashboardLayout)/loading": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(DashboardLayout)/loading.js"
+      "static/chunks/app/authentication/register/page.js"
     ],
     "/layout": [
       "static/chunks/webpack.js",

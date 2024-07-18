@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Amplify } from "aws-amplify";
 import config from "@/amplifyconfiguration";
 
-Amplify.configure(config);
+Amplify.configure(config, { ssr: true });
 
 const queryClient = new QueryClient();
 
