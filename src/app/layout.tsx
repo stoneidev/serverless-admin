@@ -4,7 +4,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Amplify } from "aws-amplify";
-import config from "../amplifyconfiguration.js";
+import config from "@/amplifyconfiguration";
 
 Amplify.configure(config);
 
