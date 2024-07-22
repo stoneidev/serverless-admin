@@ -1,33 +1,33 @@
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { getCurrentUser } from "aws-amplify/auth";
+// components/AuthWrapper.tsx
+import { useAuth } from "@/utils/hooks/useAuth";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
-const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
+interface AuthWrapperProps {
+  children: React.ReactNode;
+}
+
+const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const { isAuthenticated, loading } = useAuth();
 
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        await getCurrentUser();
-        setIsAuthenticated(true);
-      } catch (err) {
-        setIsAuthenticated(false);
-        router.push("/authentication/login");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    checkAuth();
-  }, [router]);
+    if (!loading && !isAuthenticated) {
+      router.push(
+        `/authentication/login?redirect=${pathname}${
+          searchParams ? `?${searchParams.toString()}` : ""
+        }`
+      );
+    }
+  }, [isAuthenticated, loading, router]);
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  return isAuthenticated ? children : null;
+  return <>{isAuthenticated ? children : null}</>;
 };
 
 export default AuthWrapper;
