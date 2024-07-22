@@ -4,6 +4,7 @@ import {
   IconLayoutDashboard,
   IconLogin,
   IconMoodHappy,
+  IconTemplate,
   IconTypography,
   IconUserPlus,
 } from "@tabler/icons-react";
@@ -21,6 +22,16 @@ const Menuitems = [
     title: "Dashboard",
     icon: IconLayoutDashboard,
     href: "/",
+  },
+  {
+    navlabel: true,
+    subheader: "TEMPLATE",
+  },
+  {
+    id: uniqueId(),
+    title: "Template",
+    icon: IconTemplate,
+    href: "/email/template",
   },
   {
     navlabel: true,
