@@ -63,18 +63,19 @@ const Template = () => {
             sx={{
               "& .MuiDataGrid-columnHeader": {
                 fontWeight: 700,
+                fontSize: 16,
                 borderBottom: "1px solid rgba(0, 0, 0, 0.12)",
-                backgroundColor: "rgba(211, 211, 211, 0.5)", // 회색 배경 추가
+                backgroundColor: "rgba(235, 235, 235, 0.581)", // 회색 배경 추가
               },
-              "& .MuiDataGrid-cell": {
-                borderBottom: "1px solid rgba(0, 0, 0, 0.12)",
-              },
+              // "& .MuiDataGrid-cell": {
+              //   borderBottom: "1px solid rgba(0, 0, 0, 0.12)",
+              // },
               "& .MuiDataGrid-row": {
                 borderBottom: "1px solid rgba(0, 0, 0, 0.12)",
               },
-              "& .MuiDataGrid-virtualScroller": {
-                borderBottom: "1px solid rgba(0, 0, 0, 0.12)",
-              },
+              // "& .MuiDataGrid-virtualScroller": {
+              //   borderBottom: "1px solid rgba(0, 0, 0, 0.12)",
+              // },
             }}
             autoHeight
           />

@@ -1,4 +1,5 @@
 import { createTheme } from "@mui/material/styles";
+import type {} from "@mui/x-data-grid/themeAugmentation";
 import { Plus_Jakarta_Sans } from "next/font/google";
 
 export const plus = Plus_Jakarta_Sans({
@@ -124,6 +125,13 @@ const baselightTheme = createTheme({
     },
   },
   components: {
+    MuiDataGrid: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "white",
+        },
+      },
+    },
     MuiCssBaseline: {
       styleOverrides: {
         ".MuiPaper-elevation9, .MuiPopover-root .MuiPaper-elevation": {

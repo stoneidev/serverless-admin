@@ -17,7 +17,7 @@ import { fetchAuthSession } from "aws-amplify/auth";
 const fetchDashboardData = async () => {
   const session = await fetchAuthSession();
   const idToken = session.tokens?.idToken;
-  const { data } = await api.get("/hello", {
+  const { data } = await api.get("/sales", {
     headers: {
       Authorization: `Bearer ${idToken}`,
     },
@@ -52,11 +52,12 @@ const Dashboard = () => {
   return (
     <PageContainer title="Dashboard" description="this is Dashboard for s&I">
       <Box>
-        {data.message}
-        {publicData.message}
         <Grid container spacing={3}>
           <Grid item xs={12} lg={8}>
-            <SalesOverview />
+            <SalesOverview
+              eaningsData={data.sales.eanings}
+              expenseData={data.sales.expense}
+            />
           </Grid>
           <Grid item xs={12} lg={4}>
             <Grid container spacing={3}>

@@ -1,3 +1,14 @@
-export default function Page({ params }: { params: { id: number } }) {
-  return <div>My Post: {params.id}</div>;
-}
+"use client";
+
+import { useEditor, EditorContent } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+
+const Page = ({ params }: { params: { id: number } }) => {
+  const editor = useEditor({
+    extensions: [StarterKit],
+    content: "<p>Hello World! 🌎️</p>",
+  });
+  return <EditorContent editor={editor} />;
+};
+
+export default Page;
