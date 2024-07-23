@@ -2,7 +2,6 @@
 import { Grid, Box } from "@mui/material";
 import PageContainer from "@/app/(DashboardLayout)/components/container/PageContainer";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 
 // components
 import SalesOverview from "@/app/(DashboardLayout)/components/dashboard/SalesOverview";
@@ -26,6 +25,11 @@ const fetchDashboardData = async () => {
   return data;
 };
 
+const fetchPublicData = async () => {
+  const { data } = await api.get("/public");
+  return data;
+};
+
 const Dashboard = () => {
   // useQuery 훅 사용
   const { data, isLoading, error } = useQuery({
@@ -33,13 +37,23 @@ const Dashboard = () => {
     queryFn: fetchDashboardData,
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  const {
+    data: publicData,
+    isLoading: isPublicLoading,
+    error: publicError,
+  } = useQuery({
+    queryKey: ["publicData"],
+    queryFn: fetchPublicData,
+  });
+
+  if (isLoading || isPublicLoading) return <div>Loading...</div>;
   if (error) return <div>An error occurred: {error.message}</div>;
 
   return (
     <PageContainer title="Dashboard" description="this is Dashboard for s&I">
       <Box>
         {data.message}
+        {publicData.message}
         <Grid container spacing={3}>
           <Grid item xs={12} lg={8}>
             <SalesOverview />
