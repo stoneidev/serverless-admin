@@ -12,10 +12,17 @@ import ProductPerformance from "@/app/(DashboardLayout)/components/dashboard/Pro
 import Blog from "@/app/(DashboardLayout)/components/dashboard/Blog";
 import MonthlyEarnings from "@/app/(DashboardLayout)/components/dashboard/MonthlyEarnings";
 import api from "@/utils/api";
+import { fetchAuthSession } from "aws-amplify/auth";
 
 // API 요청 함수
 const fetchDashboardData = async () => {
-  const { data } = await api.get("/hello");
+  const session = await fetchAuthSession();
+  const idToken = session.tokens?.idToken;
+  const { data } = await api.get("/hello", {
+    headers: {
+      Authorization: `Bearer ${idToken}`,
+    },
+  });
   return data;
 };
 
