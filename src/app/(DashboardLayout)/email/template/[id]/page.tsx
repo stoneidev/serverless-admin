@@ -1,14 +1,7 @@
 "use client";
 
-import { useEditor, EditorContent } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-
-const Page = ({ params }: { params: { id: number } }) => {
-  const editor = useEditor({
-    extensions: [StarterKit],
-    content: "<p>Hello World! 🌎️</p>",
-  });
-  return <EditorContent editor={editor} />;
+const Template = ({ params }: { params: { id: number } }) => {
+  return <h1>HH</h1>;
 };
 
-export default Page;
+export default Template;

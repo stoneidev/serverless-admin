@@ -1,10 +1,12 @@
 import {
   IconAperture,
   IconCopy,
+  IconExposurePlus1,
   IconLayoutDashboard,
   IconLogin,
   IconMoodHappy,
   IconTemplate,
+  IconToolsKitchen2,
   IconTypography,
   IconUserPlus,
 } from "@tabler/icons-react";
@@ -32,6 +34,16 @@ const Menuitems = [
     title: "Template",
     icon: IconTemplate,
     href: "/email/template",
+  },
+  {
+    navlabel: true,
+    subheader: "VOTE",
+  },
+  {
+    id: uniqueId(),
+    title: "Vote",
+    icon: IconExposurePlus1,
+    href: "/vote",
   },
   {
     navlabel: true,
